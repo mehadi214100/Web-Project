@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Assistance - Amader Krisok</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="loan.css">
+</head>
+<body>
+
+<header class="header">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/logo.png" alt="Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="tahi/cropinfo.html">Crop Information</a></li>
+            <li><a href="Disease Diagnosis/Disease Diagnosis.html">Disease Diagnosis</a></li>
+            <li><a href="agricultural_product_store/index.html">Marketplace</a></li>
+            <li><a href="expert_appointment_form/index.html">Expert Consultation</a></li>
+            <li><a href="labor_machinery.php">Labor & Machinery</a></li>
+            <li><a href="#">Loan Assistance</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="loan-assistance">
+    <section class="intro-section">
+        <h1>Loan Assistance</h1>
+        <p>Empowering farmers with access to financial resources and guidance to achieve their agricultural goals.</p>
+    </section>
+
+    <section class="loan-info">
+        <h2>Available Loan Options</h2>
+        <div class="loan-options">
+            <div class="loan-card">
+                <h3>Short-Term Loans</h3>
+                <p>For seasonal crops, equipment rentals, or immediate farming needs. Flexible repayment terms available.</p>
+            </div>
+            <div class="loan-card">
+                <h3>Long-Term Loans</h3>
+                <p>Ideal for purchasing machinery, expanding farmland, or establishing sustainable practices.</p>
+            </div>
+            <div class="loan-card">
+                <h3>Government Subsidies</h3>
+                <p>Access special programs and grants provided by the government to support farmers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="apply-loan">
+        <h2>Apply for a Loan</h2>
+        <form action="submit_loan_application.php" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loan-type">Loan Type:</label>
+                <select id="loan-type" name="loan_type" required>
+                    <option value="short-term">Short-Term Loan</option>
+                    <option value="long-term">Long-Term Loan</option>
+                    <option value="subsidy">Government Subsidy</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Loan Amount (in BDT):</label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+
+            <div class="form-group">
+                <label for="purpose">Purpose of Loan:</label>
+                <textarea id="purpose" name="purpose" rows="4" required></textarea>
+            </div>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </section>
+
+    <section class="contact-support">
+        <h2>Need Help?</h2>
+        <p>If you have any questions or need assistance with your loan application, please contact us:</p>
+        <p>Email: support@amaderkrisok.com</p>
+        <p>Phone: 01777400185</p>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy;2024 Amader Krisok. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
