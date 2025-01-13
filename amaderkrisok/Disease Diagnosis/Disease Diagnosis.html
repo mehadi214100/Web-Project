@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Diagnosis</title>
+    <link rel="stylesheet" href="Disease Diagnosis.css">
+</head>
+<body style="background-image: url('path/to/your/image.jpg'); background-size: cover; background-position: center;">
+    <div style="text-align: right; padding: 10px;">
+        <button id="toggleLang" style="padding: 8px 16px; font-size: 14px; color: black;">Switch to Bangla</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img class="log" src="image/logo.png" alt="Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.php" data-en="Home" data-bn="হোম">Home</a></li>
+                <li><a href="../tahi/cropinfo.html" data-en="Crop Information" data-bn="ফসলের তথ্য">Crop Information</a></li>
+                <li><a href="#" class="active" data-en="Disease Diagnosis" data-bn="রোগ নির্ণয়">Disease Diagnosis</a></li>
+                <li><a href="../agricultural_product_store/index.html" data-en="Marketplace" data-bn="বাজার">Marketplace</a></li>
+                <li><a href="../expert_appointment_form/index.html" data-en="Expert Consultation" data-bn="বিশেষজ্ঞ পরামর্শ">Expert Consultation</a></li>
+                <li><a href="../labor_machinery.php" data-en="Labor & Machinery" data-bn="শ্রম ও যন্ত্রপাতি">Labor & Machinery</a></li>
+                <li><a href="../loan.html" data-en="Loan Assistance" data-bn="ঋণ সহায়তা">Loan Assistance</a></li>
+                <li><a class="Contact" href="#" data-en="Logout" data-bn="লগআউট">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Disease Diagnosis Section -->
+    <section class="disease-diagnosis">
+        <h1 data-en="Disease Diagnosis" data-bn="রোগ নির্ণয়">Disease Diagnosis</h1>
+        <p data-en="Select your crop to identify common diseases and learn how to manage them."
+           data-bn="আপনার ফসল নির্বাচন করুন সাধারণ রোগ চিহ্নিত করতে এবং সেগুলি কীভাবে পরিচালনা করবেন তা শিখুন।">
+            Select your crop to identify common diseases and learn how to manage them.
+        </p>
+
+        <form id="diagnosisForm">
+            <label for="cropSelect" data-en="Choose Crop" data-bn="ফসল নির্বাচন করুন">Choose Crop:</label>
+            <select id="cropSelect">
+                <option value="rice" data-en="Rice" data-bn="ধান">Rice</option>
+                <option value="maize" data-en="Maize" data-bn="ভুট্টা">Maize</option>
+                <option value="wheat" data-en="Wheat" data-bn="গম">Wheat</option>
+                <option value="carrot" data-en="Carrot" data-bn="গাজর">Carrot</option>
+                <option value="cauliflower" data-en="Cauliflower" data-bn="ফুলকপি">Cauliflower</option>
+                <option value="cabbage" data-en="Cabbage" data-bn="বাঁধাকপি">Cabbage</option>
+                <option value="tomato" data-en="Tomato" data-bn="টমেটো">Tomato</option>
+            </select>
+
+            <button type="button" id="diagnoseBtn" data-en="Diagnose" data-bn="রোগ নির্ণয়">Diagnose</button>        </form>
+
+        <div id="diagnosisResult" style="margin-top: 20px; display: none;">
+            <h2 data-en="Diagnosis Result" data-bn="রোগ নির্ণয়ের ফলাফল">Diagnosis Result:</h2>
+            <p id="resultText"></p>
+            <div id="resultImages"></div>
+        </div>
+    </section>
+
+    <script>
+        const cropDiseases = {
+            rice: {
+            en: `Diseases:
+• Blast: Causes leaf spots and affects growth.
+• Bacterial Blight: Turns the leaves yellow.
+• Sheath Blight: Creates white lesions near the base.
+Prevention:
+• Use disease-resistant varieties.
+• Regular field monitoring and proper water management.
+• Maintain cleanliness after harvesting.`,
+            bn: `রোগ:
+• ব্লাস্ট (Blast): পাতায় দাগ এবং ফসলের বৃদ্ধিতে সমস্যা করে।
+• ব্যাকটেরিয়াল ব্লাইট (Bacterial Blight): গাছের পাতাগুলি হলুদ হয়ে যায়।
+• শীথ ব্লাইট (Sheath Blight): গাছের গোড়ায় সাদা দাগ দেখা যায়।
+
+প্রতিরোধ:
+• রোগ প্রতিরোধী জাত ব্যবহার করা।
+• নিয়মিত জমি পর্যবেক্ষণ এবং ভালো জলব্যবস্থাপনা নিশ্চিত করা।
+• ফসল কাটার পর জমি পরিষ্কার রাখা।`,
+            images: ['image/Rice (Blast, Bacterial Blight, Sheath Blight)3.jpg', 'image/Rice (Blast, Bacterial Blight, Sheath Blight)4.png', 'image/Rice (Blast, Bacterial Blight, Sheath Blight).jpg','image/Rice (Blast, Bacterial Blight, Sheath Blight)1.jpg']
+        },
+        maize: {
+            en: `Diseases:
+• Leaf Spot: Causes small spots on the leaves.
+• Blight: Affects leaves and ears.
+• Rust: Causes reddish spots on leaves.
+
+Prevention:
+• Crop rotation.
+• Apply fungicides during high-risk periods.
+• Maintain proper spacing for better air circulation.`,
+            bn: `রোগ:
+• পাতার দাগ (Leaf Spot): পাতায় ছোট দাগ দেখা যায়।
+• ব্লাইট (Blight): গাছের পাতা এবং কান ক্ষতিগ্রস্ত হয়।
+• মরিচা (Rust): পাতায় লালচে দাগ।
+
+প্রতিরোধ:
+• ফসল চক্র পরিবর্তন।
+• উচ্চ ঝুঁকির সময়ে ফাঙ্গিসাইড ব্যবহার।
+• উদ্ভিদের মধ্যে সঠিক দূরত্ব বজায় রাখা।`,
+            images: ['image/Maize (Leaf Spot, Blight, Rust)4.webp','image/Maize (Leaf Spot, Blight, Rust)1.png','image/Maize (Leaf Spot, Blight, Rust)2.png','image/Maize (Leaf Spot, Blight, Rust)3.jpg']
+        },
+        wheat: {
+            en: `Diseases:
+• Rust: Spots on leaves.
+• Smut: Affects seeds.
+• Virus: Changes leaf color.
+
+Prevention:
+• Use disease-free seeds.
+• Apply fungicides during early infection.
+• Avoid over-irrigation.`,
+            bn: `রোগ:
+• মরিচা (Rust): পাতার উপর দাগ দেখা যায়।
+• স্মাট (Smut): গাছের বীজে সমস্যা করে।
+• ভাইরাস (Virus): পাতার রঙ পরিবর্তন।
+
+প্রতিরোধ:
+• রোগমুক্ত বীজ ব্যবহার।
+• সংক্রমণের প্রাথমিক পর্যায়ে ওষুধ প্রয়োগ।
+• অতিরিক্ত সেচ এড়ানো।`,
+            images: ['image/Wheat (Rust, Smut, Virus)4.png','image/Wheat (Rust, Smut, Virus).jpg','image/Wheat (Rust, Smut, Virus)1.jpg','image/Wheat (Rust, Smut, Virus)2.webp','image/Wheat (Rust, Smut, Virus)3.jpg']
+        },
+        carrot: {
+            en: `Diseases:
+• Soft Rot: Softening of roots.
+• Nematode: Knots in roots.
+
+Prevention:
+• Ensure proper drainage.
+• Use neem oil.
+• Rotate crops.`,
+            bn: `রোগ:
+• নরম পচন (Soft Rot): শিকড় নরম হয়ে যায়।
+• নেমাটোড (Nematode): শিকড়ের নটস।
+
+প্রতিরোধ:
+• সঠিক নিষ্কাশন নিশ্চিত করা।
+• নিম তেল ব্যবহার।
+• ফসল চক্র পরিবর্তন।`,
+            images: ['image/Carrot 2.jpg','image/Carrot (Soft Rot, Nematode)1.jpg','image/Carrot (Soft Rot, Nematode3.jpg']
+        },
+        cauliflower: {
+            en: `Diseases:
+• Clubroot: Thickening of roots.
+• Black Rot: Black streaks on leaf veins.
+
+Prevention:
+• Maintain proper soil pH.
+• Use disease-free transplants.
+• Sterilize tools.`,
+            bn: `রোগ:
+• ক্লাব রুট (Clubroot): শিকড় মোটা হয়ে যায়।
+• ব্ল্যাক রট (Black Rot): পাতার শিরায় কালো দাগ।
+
+প্রতিরোধ:
+• মাটির সঠিক পিএইচ বজায় রাখা।
+• রোগমুক্ত চারা ব্যবহার।
+• সরঞ্জাম জীবাণুমুক্ত করা।`,
+            images: ['image/Cauliflower (Clubroot, Black Rot)3.png','image/Cauliflower (Clubroot, Black Rot)1.jpg','image/Cauliflower (Clubroot, Black Rot)2.jpg']
+        },
+        cabbage: {
+            en: `Diseases:
+• Black Rot: Spots on leaves.
+• Leaf Spot: Leaf discoloration.
+• Clubroot: Thickened roots.
+
+Prevention:
+• Rotate crops.
+• Use disease-free transplants.
+• Maintain proper spacing.`,
+            bn: `রোগ:
+• ব্ল্যাক রট (Black Rot): পাতায় দাগ।
+• পাতার দাগ (Leaf Spot): পাতার দাগ দেখা যায়।
+• ক্লাব রুট (Clubroot): শিকড় মোটা।
+
+প্রতিরোধ:
+• ফসল চক্র পরিবর্তন।
+• রোগমুক্ত চারা ব্যবহার।
+• উদ্ভিদের মধ্যে পর্যাপ্ত ফাঁকা রাখা।`,
+            images: ['image/Cabbage (Black Rot, Leaf Spot, Clubroot3.jpg ','image/Cabbage (Black Rot, Leaf Spot, Clubroot.png ','image/Cabbage (Black Rot, Leaf Spot, Clubroot1.jpeg ','image/Cabbage (Black Rot, Leaf Spot, Clubroot2.jpg']
+        },
+        Tomato:{
+            en: ` Diseases:
+- Blight: Leaf rot.
+- Rust: Plant wilting.
+
+Prevention:
+- Proper irrigation techniques.
+- Use disease-resistant seeds.
+- Apply fungicides when necessary.`,
+            bn: `রোগ:
+- পাতার পচন (Blight): পাতার পচা দাগ।
+- মরিচা (Rust): গাছ শুকিয়ে যায়।
+
+প্রতিরোধ:
+- সঠিক সেচ পদ্ধতি।
+- রোগ প্রতিরোধী বীজ ব্যবহার।
+- প্রয়োজনে ফাংগিসাইড প্রয়োগ।`,
+            images: ['image/Tomato (Blight, Rust3.webp','image/Tomato (Blight, Rust.webp','image/Tomato (Blight, Rust1.jpg','image/Tomato (Blight, Rust2.webp']
+        }
+            // Add other crops similarly...
+     };
+
+        let isEnglish = true;
+
+        document.getElementById('diagnoseBtn').addEventListener('click', () => {
+            const crop = document.getElementById('cropSelect').value;
+            const resultText = document.getElementById('resultText');
+            const diagnosisResult = document.getElementById('diagnosisResult');
+            const resultImages = document.getElementById('resultImages');
+            resultText.textContent = isEnglish ? cropDiseases[crop].en : cropDiseases[crop].bn;
+            resultImages.innerHTML = '';
+            cropDiseases[crop].images.forEach(image => {
+                const img = document.createElement('img');
+                img.src = image;
+                img.alt = `${crop} disease image`;
+                img.style.width = '180px';
+                resultImages.appendChild(img);
+            });
+
+            diagnosisResult.style.display = "block";
+        });
+
+        document.getElementById('toggleLang').addEventListener('click', () => {
+            const elements = document.querySelectorAll('[data-en]');
+            elements.forEach(element => {
+                element.textContent = isEnglish ? element.getAttribute('data-bn') : element.getAttribute('data-en');
+            });
+
+            isEnglish = !isEnglish;
+            document.getElementById('toggleLang').textContent = isEnglish ? 'Switch to Bangla' : 'Switch to English';
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="image/logo.png" alt="Logo">
+                <p>Empowering sustainable agriculture from seed to harvest. Join us in building a healthier future through eco-friendly practices.</p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Crop Information</a></li>
+                    <li><a href="#">Disease Diagnosis</a></li>
+                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: amaderkrisok.com</p>
+                <p>Phone: 01777400185</p>
+                <p>Address: DUET, Joydebpur, Gazipur, Bangladesh</p>
+            </div>
+
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook-messenger"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy;2024 Amader Krisok.com. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
